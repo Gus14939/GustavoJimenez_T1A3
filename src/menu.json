@@ -1,0 +1,38 @@
+{
+    "categories": [
+      {
+        "name": "Burgers",
+        "items": [
+          {
+            "number": "B1",
+            "name": "Big Gus",
+            "price": 5.99,
+            "prep_time": 100,
+            "stock_num": 1
+          },
+          {
+            "number": "B2",
+            "name": "Quarter Gus with Cheese",
+            "price": 4.99,
+            "prep_time": 200,
+            "stock_num": 2
+          },
+          {
+            "number": "B3",
+            "name": "GusChicken",
+            "price": 3.99,
+            "prep_time": 300,
+            "stock_num": 3
+          },
+          {
+            "number": "B4",
+            "name": "DoubleGus Cheeseburger",
+            "price": 4.49,
+            "prep_time": 400,
+            "stock_num": 4
+          }
+        ]
+      }
+    ]
+  }
+  
