@@ -1,0 +1,6 @@
+{
+    "registered_users": [
+        {"name": "Gus", "Birthday": "1981-02-15", "user_code": 117},
+        {"name": "Jimbo", "Birthday": "1990-01-20", "user_code": 100}
+    ]
+}

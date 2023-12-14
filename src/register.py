@@ -19,18 +19,35 @@ Implement user registration with name, birthday, and a unique 3-number code
    birthday offers based on their info.
 
 '''
-'''
+import random
 import json
 
-file_name = get_user_info
+list_of_user_numbers_created = []
 
-def get_user_info():
+def create_user_code():
+    return random.randint(100, 120)
+    
+    
+personal_user_code = create_user_code()
+
+print(personal_user_code)
+
+import json
+get_user_info = {}
+get_user_info["name"] = str(input("What is your name: "))
+get_user_info["Birthday"] = input("and your Bday (YYYY-MM-DD): ")
+get_user_info["user_code"] = personal_user_code
+
+
+file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
+
+def save_user_info():
     with open(file_name, "w") as json_file:
-        json.dump(user_info_input)
-
+        json.dump(get_user_info, json_file)
+        
+save_user_info()
 '''
 
-import json
 
 # Get user input
 user_data = {}
@@ -39,10 +56,11 @@ user_data["age"] = int(input("Enter your age: "))
 user_data["city"] = input("Enter your city: ")
 
 # Specify the file name
-file_name = "user_data.json"
+file_name = (f"{user_data['name']}.json")
 
 # Write the user data to the JSON file
 with open(file_name, "w") as json_file:
     json.dump(user_data, json_file)
 
 print(f"The JSON file '{file_name}' has been created with your data.")
+'''
