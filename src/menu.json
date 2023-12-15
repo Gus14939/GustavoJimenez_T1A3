@@ -77,7 +77,7 @@
           "stock_num": 0
         },
         {
-          "number": "FS1",
+          "number": "FS3",
           "name": "Side Salad",
           "price": 2.99,
           "prep_time": 120,
@@ -134,6 +134,41 @@
           "price": 2.99,
           "prep_time": 70,
           "stock_num": 10
+        }
+      ]
+    }
+  ],
+  "B-day": [
+    {
+      "name": "Birthday Specials",
+      "items": [
+        {
+          "number": "BD1",
+          "name": "Birthday Gus Special",
+          "price": 5.99,
+          "prep_time": 100,
+          "stock_num": 20
+        },
+        {
+          "number": "BD2",
+          "name": "Dessert B-day Cheese",
+          "price": 2.99,
+          "prep_time": 120,
+          "stock_num": 10
+        },
+        {
+          "number": "BD3",
+          "name": "Gus Special Chicken",
+          "price": 2.99,
+          "prep_time": 80,
+          "stock_num": 5
+        },
+        {
+          "number": "BD4",
+          "name": "Birthday Fruit",
+          "price": 2.99,
+          "prep_time": 200,
+          "stock_num": 1
         }
       ]
     }

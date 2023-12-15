@@ -22,45 +22,73 @@ Implement user registration with name, birthday, and a unique 3-number code
 import random
 import json
 
-list_of_user_numbers_created = []
-
-def create_user_code():
-    return random.randint(100, 120)
+def user_registration():
+    print()
+    print("You'll have great perks after filling in this form. Thanks for registering!")
     
+    def create_user_code():
+        return random.randint(100, 120)            
+    personal_user_code = create_user_code()
+
+    get_user_info = {}
+    get_user_info["name"] = str(input("What is your name: "))
+    get_user_info["Birthday"] = input("and your Bday (YYYY-MM-DD): ")
+    get_user_info["user_code"] = personal_user_code
     
-personal_user_code = create_user_code()
-
-print(personal_user_code)
-
-import json
-get_user_info = {}
-get_user_info["name"] = str(input("What is your name: "))
-get_user_info["Birthday"] = input("and your Bday (YYYY-MM-DD): ")
-get_user_info["user_code"] = personal_user_code
+    print(f"Welcome {get_user_info['name']}, your personal code is {get_user_info['user_code']}. Don't loose it")
 
 
-file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
+    file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
 
-def save_user_info():
-    with open(file_name, "w") as json_file:
-        json.dump(get_user_info, json_file)
+    def save_user_info():
+        with open(file_name, "w") as json_file:
+            json.dump(get_user_info, json_file)
+            
+    save_user_info()
+
+def user_login():
+    get_user_code = int(input("What is your 3 number code: "))
+    
+    with open("user_database.json", "r") as json_file:
+        user_database = json.load(json_file)
+    
+    users_in_database = user_database["registered_users"]
+    
+    for user in users_in_database:
+        if user["user_code"] == get_user_code:
+            print(f"hi {user['name']}")
         
-save_user_info()
-'''
+def user_unregistered():
+    return None
+            
+def registration_selection():    
+    print("Select from the 3 options below")
+    print()
+    
+    print("Type 1 to Register to Gus' Restaurant")
+    print("Type 2 to Login with your code number")
+    print("Type 3 to continue un-registered")
+    print()
+    
+    choice = int(input("How would you like to proceed?: "))
+    return choice
 
+user_choice = ""
 
-# Get user input
-user_data = {}
-user_data["name"] = input("Enter your name: ")
-user_data["age"] = int(input("Enter your age: "))
-user_data["city"] = input("Enter your city: ")
+# press 1 to register
+# press 2 to log in
+# press 3 to continue unregistered
 
-# Specify the file name
-file_name = (f"{user_data['name']}.json")
+# registration_selection()
+   
+def run_register():
+    user_choice= registration_selection()   
+    if user_choice == 1:
+        user_registration()
+    elif user_choice == 2:
+        user_login()
+    else:
+        user_unregistered()
+        
 
-# Write the user data to the JSON file
-with open(file_name, "w") as json_file:
-    json.dump(user_data, json_file)
-
-print(f"The JSON file '{file_name}' has been created with your data.")
-'''
+run_register()

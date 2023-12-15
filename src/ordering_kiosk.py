@@ -1,11 +1,45 @@
 # Self Ordering Kiosk // Gustavo Jimenez T1A3
 
 import json
+# from menu import 
+# from checkout import
+# from payment import 
 from features import compute
-from register import get_user_info
+# from register import get_user_info
 
 print()
-print("Welcome to the restaurant! Let's get started with your registration.")
+print("Welcome to Gus' restaurant!\nLet's get started with your registration.")
+print()
+
+### REGISTRATION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+from register import registration_selection
+    
+# registration_selection()
+# press 1 to register
+# press 2 to log in
+# press 3 to continue unregistered
+
+
+# B-day !!!!
+
+### MENU
+
+# Show menu
+
+# Take order
+
+### CHECK-OUT
+
+# Show receipt # if Remove # Show receipt
+
+### PAYMENT
+
+# Something simple match user imput to the total 
+
+### END
+
+
+
 
 # Read MENU json file
 def read_menu():
@@ -59,7 +93,6 @@ def main():
     total_time = sum(item['prep_time'] for item in order)
     compute(total_time)
 
+
 if __name__ == "__main__":
     main()
-
-    

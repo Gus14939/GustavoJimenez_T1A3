@@ -1,6 +1,9 @@
 {
     "registered_users": [
-        {"name": "Gus", "Birthday": "1981-02-15", "user_code": 117},
-        {"name": "Jimbo", "Birthday": "1990-01-20", "user_code": 100}
+        {"name": "Gus", "Birthday": "1981-02-15", "user_code": 100},
+        {"name": "Jimbo", "Birthday": "1990-01-20", "user_code": 102},
+        {"name": "Anna", "Birthday": "2000-01-20", "user_code": 103},
+        {"name": "Raul", "Birthday": "2005-01-20", "user_code": 104},
+        {"name": "Ryan", "Birthday": "1980-01-20", "user_code": 105}
     ]
 }
