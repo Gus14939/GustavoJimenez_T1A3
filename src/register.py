@@ -21,34 +21,59 @@ Implement user registration with name, birthday, and a unique 3-number code
 '''
 import random
 import json
-
+# press 1 to register
 def user_registration():
-    print()
+    print("\n\n")
     print("You'll have great perks after filling in this form. Thanks for registering!")
+    print()
+    
     
     def create_user_code():
-        return random.randint(100, 120)            
+        with open("user_database.json", "r") as json_file:
+            read_data = json.load(json_file)
+        
+        registered_users = read_data.get("registered_users", [])
+        
+        if registered_users:
+            last_user = max(users["user_code"] for users in registered_users)   
+            new_user_code = last_user + 1
+        else:
+            new_user_code = 100
+        
+        return new_user_code
+                
+        # return random.randint(100, 120)        
     personal_user_code = create_user_code()
-
-    get_user_info = {}
-    get_user_info["name"] = str(input("What is your name: "))
-    get_user_info["Birthday"] = input("and your Bday (YYYY-MM-DD): ")
-    get_user_info["user_code"] = personal_user_code
     
-    print(f"Welcome {get_user_info['name']}, your personal code is {get_user_info['user_code']}. Don't loose it")
+    def get_new_user_info():
+        get_user_info = {}
+        get_user_info["name"] = str(input("What is your name: ")).capitalize()
+        get_user_info["Birthday"] = input("and your Bday (YYYY-MM-DD): ")
+        get_user_info["user_code"] = personal_user_code
+        return get_user_info
+        
+        print(f"Welcome {get_user_info['name']}, your personal code is {get_user_info['user_code']}. Don't loose it")
 
+        # file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
 
-    file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
-
-    def save_user_info():
-        with open(file_name, "w") as json_file:
-            json.dump(get_user_info, json_file)
+    def save_user_to_db(new_user_to_db):
+    #read json
+        with open("user_database.json", "r") as json_file:
+            current_user_db = json.load(json_file)
+    # append new user
+        current_user_db.setdefault("registered_users", []).append(new_user_to_db)
+    # write to db json
+        with open("user_database.json", "w") as json_file:
+            json.dump(current_user_db, json_file, indent=2 ) 
+    
+    new_user_to_db = get_new_user_info()
             
-    save_user_info()
-
+    save_user_to_db(new_user_to_db)
+    
+# press 2 to log in
 def user_login():
     get_user_code = int(input("What is your 3 number code: "))
-    
+
     with open("user_database.json", "r") as json_file:
         user_database = json.load(json_file)
     
@@ -56,12 +81,20 @@ def user_login():
     
     for user in users_in_database:
         if user["user_code"] == get_user_code:
-            print(f"hi {user['name']}")
+            print("\n\n")
+            print(f"Hi {user['name']}, welcome back!")
+            print("Plase choose by typing the alpha-numeric code from our menu below")
+            
         
+# press 3 to continue unregistered
 def user_unregistered():
+    print("\n\n")
+    print("Hello Stranger, welcome to Gus' restaurant")
+    print("Plase choose by typing the alpha-numeric code from our menu below")
     return None
             
-def registration_selection():    
+def registration_selection():
+    print("\n\n")
     print("Select from the 3 options below")
     print()
     
