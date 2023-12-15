@@ -4,7 +4,7 @@ import json
 print()
 print("GUS' RESTAURANT MENU")
 
-def read_menu(json_file_name):
+def read_data(json_file_name):
     with open(json_file_name, "r") as json_file:
         return json.load(json_file)
 
@@ -18,18 +18,26 @@ def show_menu(menu_data):
 
 # Print order
 def show_order(order_data):
+    total_price_order = sum(item['price'] for item in order_data)
     print()
+    print("Here' is your order")
+    print()
+    print("{:<10}{:<30}{:<0}".format('CODE ', 'ITEM', 'PRICE'))
     for item in order_data:
-        print("{:<5}{:<25}${:<5.2f}".format(item['number'], item['name'], item['price']))
+        print("{:<10}{:<30}${:<0.2f}".format(item['number'], item['name'], item['price']))
+    print()
+    print("{:<10}{:<30}${:<0.2f}".format( ' ', 'Take-Out total:', total_price_order ).upper())
+    # print(f"Take-Out total:  ${sum(item['price'] for item in order_data):.2f}")
+    
     print()
     
-# Remove from order
+# Remove from order=
 def checkout_order(remove_order_data): #remove_order_data):
     
-    read_order = read_menu("temp_user_order.json")
-    print(read_menu)
+    read_order = read_data("temp_user_order.json")
+    print(read_order)
     
-    for item in remove_order_data:
+    for item in read_order:
         return item['number']
     
     print("type OK if you wish to proceed to payment, or")
@@ -81,12 +89,13 @@ def checkout(remove_order_data):
     
 
 def run_menu():
-    menu_data = read_menu("menu.json")
+    menu_data = read_data("menu.json")
     print_menu(menu_data)
     
     
     order = []
     while True:
+        # select_item() function parameter menu_data
         selected_item = select_item(menu_data)
         if selected_item:
             user_selected_item(selected_item)
@@ -97,7 +106,7 @@ def run_menu():
     with open("temp_user_order.json", "w") as json_file:
         json.dump(order, json_file, indent=2)    
     
-    order_data = read_menu("temp_user_order.json")
+    order_data = read_data("temp_user_order.json")
     print_order(order_data)
     
     # checkout()
