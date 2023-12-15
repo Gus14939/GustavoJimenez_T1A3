@@ -1,18 +1,15 @@
 # Self Ordering Kiosk // Gustavo Jimenez T1A3
 
 import json
+from register import run_register
+from menu import run_menu
 # from menu import 
 # from checkout import
 # from payment import 
 # from features import compute
 # from register import get_user_info
 
-print()
-print("Welcome to Gus' restaurant!\nLet's get started with your registration.")
-print()
-
 ### REGISTRATION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-from register import run_register
     
 # registration_selection()
 # press 1 to register
@@ -25,7 +22,6 @@ from register import run_register
 ### MENU
 
 # Show menu
-from menu import run_menu
 
 # Take order
 
@@ -39,6 +35,12 @@ from menu import run_menu
 
 ### END
 
+def main():
+    print()
+    print("Welcome to Gus' restaurant!\nLet's get started with your registration.")
 
+    run_register()
+    run_menu()
 
-
+if __name__ == "__main__":
+    main()

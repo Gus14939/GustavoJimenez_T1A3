@@ -1,0 +1,16 @@
+[
+  {
+    "number": "B1",
+    "name": "Big Gus",
+    "price": 5.99,
+    "prep_time": 100,
+    "stock_num": 20
+  },
+  {
+    "number": "B3",
+    "name": "GusChicken",
+    "price": 3.99,
+    "prep_time": 80,
+    "stock_num": 5
+  }
+]

@@ -4,8 +4,8 @@ import json
 print()
 print("GUS' RESTAURANT MENU")
 
-def read_menu():
-    with open("menu.json", "r") as json_file:
+def read_menu(json_file_name):
+    with open(json_file_name, "r") as json_file:
         return json.load(json_file)
 
 # Print MENU
@@ -16,16 +16,53 @@ def show_menu(menu_data):
             print(f" - {item['number']} {item['name']}: ${item['price']:.2f} - {item['prep_time']}")
     print()
 
+# Print order
+def show_order(order_data):
+    print()
+    for item in order_data:
+        print("{:<5}{:<25}${:<5.2f}".format(item['number'], item['name'], item['price']))
+    print()
+    
+# Remove from order
+def checkout_order(remove_order_data): #remove_order_data):
+    
+    read_order = read_menu("temp_user_order.json")
+    print(read_menu)
+    
+    for item in remove_order_data:
+        return item['number']
+    
+    print("type OK if you wish to proceed to payment, or")
+    print("type the code of the item you wish to remove")
+    
+    
+    while True:
+        selected_item = select_item(menu_data)
+        if selected_item:
+            user_selected_item(selected_item)
+            order.append(selected_item)
+        else:
+            break
+        
+    checkout_input = input("type OK or the code: ").upper()
+    
+    if checkout_input == "OK":
+        return None
+    elif checkout_input == item['number']:
+        # for item in remove_order_data:
+        pass
+    #     item['number'], item['name'], item['price']
+
 # User input
 def select_item(menu_data):
-    user_to_select_item = str(input("Select the number of your food or type 'done' to finish: ")).upper()
-    if user_to_select_item == "DONE":
+    menu_section_user_input = str(input("Select the number of your food or type 'done' to finish: ")).upper()
+    if menu_section_user_input == "DONE":
         return None
     for category in menu_data["categories"]:
         for item in category["items"]:
-            if item["number"] == user_to_select_item:
+            if item["number"] == menu_section_user_input:
                 return item
-    return None
+    # return None
 
 def user_selected_item(selected_item):
     print(f"You have selected {selected_item['number']} - {selected_item['name']} for a price of ${selected_item['price']:.2f}\n")
@@ -36,9 +73,18 @@ def user_selected_item(selected_item):
 def print_menu(menu_data):
     show_menu(menu_data)
 
+def print_order(order_data):
+    show_order(order_data)
+    
+def checkout(remove_order_data):
+    checkout_order(remove_order_data)
+    
+
 def run_menu():
-    menu_data = read_menu()
+    menu_data = read_menu("menu.json")
     print_menu(menu_data)
+    
+    
     order = []
     while True:
         selected_item = select_item(menu_data)
@@ -47,14 +93,26 @@ def run_menu():
             order.append(selected_item)
         else:
             break
+    
+    with open("temp_user_order.json", "w") as json_file:
+        json.dump(order, json_file, indent=2)    
+    
+    order_data = read_menu("temp_user_order.json")
+    print_order(order_data)
+    
+    # checkout()
 
-    # Process the completed order or perform any necessary actions
+ 
     print("Order complete. Processing order...")
     # Example: Compute the total time for the order
-    print(f"Take-Out total:  ${sum(item['price'] for item in order):.2f}")
+    # print(f"Take-Out total:  ${sum(item['price'] for item in order):.2f}")
+    
+    print()
+    print()
+    print()
     total_time = sum(item['prep_time'] for item in order)
     compute(total_time)
 
 
-
-run_menu()
+if __name__ == "__main__":
+    run_menu()

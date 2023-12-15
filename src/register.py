@@ -25,7 +25,6 @@ import json
 def user_registration():
     print("\n\n")
     print("You'll have great perks after filling in this form. Thanks for registering!")
-    print()
     
     
     def create_user_code():
@@ -124,4 +123,6 @@ def run_register():
         user_unregistered()
         
 
-run_register()
+
+if __name__ == "__main__":
+    run_register()
