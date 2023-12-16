@@ -109,6 +109,7 @@ def user_login():
     user_registered_db = next((user for user in users_in_database if user["user_code"] == get_user_code), None)
 
     if user_registered_db:
+        print()
         print(f"Hi {user_registered_db['name']}, welcome back!")
     else:
         print("User not found in the database.")

@@ -1,10 +1,6 @@
 from features import compute
 import json
 
-print()
-print("Plase choose by typing the alpha-numeric code from our menu below")
-
-
 def read_json_data(json_file_name):
     with open(json_file_name, "r") as json_file:
         return json.load(json_file)
@@ -37,14 +33,21 @@ def show_order(order_data):
     
 # User input
 def select_item(menu_data):
-    menu_section_user_input = str(input("Select the code or type 'done' to checkout: ")).upper()
-    if menu_section_user_input == "DONE":
-        return None
-    for category in menu_data["categories"]:
-        for item in category["items"]:
-            if item["number"] == menu_section_user_input:
-                return item
-    # return None
+    while True:    
+        try:
+            menu_section_user_input = str(input("Select the code or type 'done' to checkout: ")).upper()
+            if menu_section_user_input == "DONE":
+                return None
+            for category in menu_data["categories"]:
+                for item in category["items"]:
+                    if item["number"] == menu_section_user_input:
+                        return item
+            raise ValueError(f"Wrong code: {menu_section_user_input} is not in the menu")
+            
+                        
+        except ValueError as e:
+            print(f"Error: Invalid input. {e}")
+    
 
 def user_selected_item(selected_item):
     print(f"You have selected {selected_item['number']} - {selected_item['name']} for a price of ${selected_item['price']:.2f}\n")
@@ -74,30 +77,34 @@ def checkout(menu_data): #remove_order_data):
     print("Type 'OK' to finalize your order")
     print()
     while True:
-        read_order = read_json_data("temp_user_order.json")
-        
-        
-        checkout_input = input("Code and done or OK: ").upper()
-        
-        if checkout_input == "OK":
-            break  # to exit the loop if the user types 'OK'
-        elif checkout_input == "DONE":
-            show_order(read_order)
+        try:
+            read_order = read_json_data("temp_user_order.json")
+            
+            
+            checkout_input = input("Code and done or OK: ").upper()
+            
+            if checkout_input == "OK":
+                break  # to exit the loop if the user types 'OK'
+            elif checkout_input == "DONE":
+                show_order(read_order)
 
-        # Find the item with the matching code in the order
-        item_to_remove = next((item for item in read_order if item['number'] == checkout_input), None)
-        
-        if item_to_remove:
-            read_order.remove(item_to_remove)
+            # Find the item with the matching code in the order
+            item_to_remove = next((item for item in read_order if item['number'] == checkout_input), None)
             
-            # Update the temp_user_order.json file with the modified order
-            with open("temp_user_order.json", "w") as json_file:
-                json.dump(read_order, json_file, indent=2)
-            
-            print(f"Item {checkout_input} removed from the order.")
-            print()
-        else:
-            print(f"No item found with code {checkout_input} in the order.")
+            if item_to_remove:
+                read_order.remove(item_to_remove)
+                
+                # Update the temp_user_order.json file with the modified order
+                with open("temp_user_order.json", "w") as json_file:
+                    json.dump(read_order, json_file, indent=2)
+                
+                print(f"Item {checkout_input} removed from the order.")
+                print()
+            else:
+                raise ValueError(f"{checkout_input} is not in your order")
+                    # print(f"No item found with code {checkout_input} in the order.")
+        except ValueError as e:
+            print(f"Invalid input: {e}")
 
 def processing_order():
     read_order = read_json_data("temp_user_order.json")
@@ -107,6 +114,9 @@ def processing_order():
 
 # run_menu is the main func
 def run_menu():
+    
+    print()
+    print("Plase choose by typing the alpha-numeric code from the menu")
     # show menu to the user
     menu_data = read_json_data("menu.json")
     show_menu(menu_data)
@@ -122,8 +132,10 @@ def run_menu():
     checkout(menu_data)
 
     # Time processing
+    print("Your order is now complete!!")
+    print("We're preparing your glorious meal")
+    print()
     processing_order()
-    print("Order complete. Processing order...")
 
     # End of Journey
     print("\n\n")
