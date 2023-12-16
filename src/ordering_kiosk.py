@@ -37,7 +37,7 @@ from menu import run_menu
 
 def main():
     print()
-    print("Welcome to Gus' restaurant!\nLet's get started with your registration.")
+    print("WELCOME TO GUS' RESTAURANT!")
 
     run_register()
     run_menu()

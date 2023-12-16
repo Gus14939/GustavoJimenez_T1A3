@@ -2,43 +2,83 @@
   "registered_users": [
     {
       "name": "Gus",
-      "Birthday": "1981-02-15",
+      "birthday": "1981-02-15",
       "user_code": 100
     },
     {
       "name": "Jimbo",
-      "Birthday": "1990-01-20",
+      "birthday": "1990-01-20",
       "user_code": 102
     },
     {
       "name": "Anna",
-      "Birthday": "2000-01-20",
+      "birthday": "2000-01-20",
       "user_code": 103
     },
     {
       "name": "Raul",
-      "Birthday": "2005-01-20",
+      "birthday": "2005-01-20",
       "user_code": 104
     },
     {
       "name": "Ryan",
-      "Birthday": "1980-01-20",
+      "birthday": "1980-01-20",
       "user_code": 105
     },
     {
       "name": "Rob",
-      "Birthday": "1991-02-20",
+      "birthday": "1991-02-20",
       "user_code": 106
     },
     {
       "name": "Fra",
-      "Birthday": "1999-05-23",
+      "birthday": "1999-05-23",
       "user_code": 107
     },
     {
       "name": "Simon",
-      "Birthday": "2000-11-09",
+      "birthday": "2000-11-09",
       "user_code": 108
+    },
+    {
+      "name": "Rony",
+      "birthday": "1990-04-05",
+      "user_code": 109
+    },
+    {
+      "name": "Pierre",
+      "birthday": "1990-9-10",
+      "user_code": 110
+    },
+    {
+      "name": "Trim",
+      "birthday": "1989-06-06",
+      "user_code": 111
+    },
+    {
+      "name": "Fernando",
+      "birthday": "2005-03-01",
+      "user_code": 112
+    },
+    {
+      "name": "Gus",
+      "birthday": "44",
+      "user_code": 113
+    },
+    {
+      "name": "Ramon",
+      "birthday": "1992-03-29",
+      "user_code": 114
+    },
+    {
+      "name": "Gus",
+      "Birthday": "r",
+      "user_code": 115
+    },
+    {
+      "name": "Gus",
+      "birthday": "1981-03-05",
+      "user_code": 116
     }
   ]
 }

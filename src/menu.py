@@ -2,7 +2,8 @@ from features import compute
 import json
 
 print()
-# print("GUS' RESTAURANT MENU")
+print("Plase choose by typing the alpha-numeric code from our menu below")
+
 
 def read_json_data(json_file_name):
     with open(json_file_name, "r") as json_file:
@@ -90,7 +91,7 @@ def checkout(menu_data): #remove_order_data):
             read_order.remove(item_to_remove)
             
             # Update the temp_user_order.json file with the modified order
-            with open("temp_user_order.json", "w") as json_file:
+            with o1pen("temp_user_order.json", "w") as json_file:
                 json.dump(read_order, json_file, indent=2)
             
             print(f"Item {checkout_input} removed from the order.")
