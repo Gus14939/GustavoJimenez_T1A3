@@ -69,15 +69,15 @@ def create_user_order(menu_data):
 
 # Remove from order=
 def checkout(menu_data): #remove_order_data):
+    print("Type in the 'code' and enter to remove")
+    print("Type 'done' to review your order")
+    print("Type 'OK' to finalize your order")
+    print()
     while True:
         read_order = read_json_data("temp_user_order.json")
         
-        print("Type in the 'code' and enter to remove")
-        print("Type 'done' to review your order")
-        print("Type 'OK' to finalize your order")
-        print()
         
-        checkout_input = input("Code(s) and done or OK: ").upper()
+        checkout_input = input("Code and done or OK: ").upper()
         
         if checkout_input == "OK":
             break  # to exit the loop if the user types 'OK'
@@ -91,10 +91,11 @@ def checkout(menu_data): #remove_order_data):
             read_order.remove(item_to_remove)
             
             # Update the temp_user_order.json file with the modified order
-            with o1pen("temp_user_order.json", "w") as json_file:
+            with open("temp_user_order.json", "w") as json_file:
                 json.dump(read_order, json_file, indent=2)
             
             print(f"Item {checkout_input} removed from the order.")
+            print()
         else:
             print(f"No item found with code {checkout_input} in the order.")
 
