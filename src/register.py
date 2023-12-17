@@ -38,6 +38,8 @@ def user_registration():
                 get_user_info["name"] = input("What is your name: ").capitalize()
                 if any(char.isdigit() for char in get_user_info["name"] ):
                     raise ValueError("Please enter valid name, no numbers.")
+                if not get_user_info["name"]:
+                    raise ValueError("Name cannot be empty.")
             except ValueError as e:
                 print(f"Error: {e}")
             else:
@@ -79,9 +81,15 @@ def user_registration():
 
 # press 2 to log in
 def user_login():
-    while True:
-        try:
+    counter = 0
+    while counter < 3:            
+        try:                
+            # User input
             get_user_code = input("What is your 3-number-code: ")
+            
+            # Error Handling
+            if not get_user_code:
+                raise ValueError("Should not be empty.")
             
             if len(get_user_code) != 3:
                 raise ValueError("Please enter a 3-digit number")
@@ -89,32 +97,99 @@ def user_login():
             if not get_user_code.isdigit():
                 raise TypeError("Please enter only numbers")
 
+            get_user_code = int(get_user_code)
+
+            # Read the user database
+            with open("user_database.json", "r") as json_file:
+                user_database = json.load(json_file)
+            
+            users_in_database = user_database["registered_users"]
+            
+            user_registered_db = next((user for user in users_in_database if user["user_code"] == get_user_code), None)
+            
+            if user_registered_db:
+                print()
+                print(f"Hi {user_registered_db['name']}, welcome back!")
+                return user_registered_db
+            else:
+                raise ValueError("User not found in the database.")
+                # return None
+                
         except ValueError as e:
-            print(f"Error: Invalid input. {e}")
+            print(f"Error: {e}")
         except TypeError as e:
             print(f"Error: {e}")
         else:
             break
-        
-    # Move the conversion to int inside the try block to handle valid input
-    
-    get_user_code = int(get_user_code)
-
-    # Read the user database
-    with open("user_database.json", "r") as json_file:
-        user_database = json.load(json_file)
-    
-    users_in_database = user_database["registered_users"]
-    
-    user_registered_db = next((user for user in users_in_database if user["user_code"] == get_user_code), None)
-
-    if user_registered_db:
-        print()
-        print(f"Hi {user_registered_db['name']}, welcome back!")
+        counter += 1
+        # Number of tries
+        if counter == 1:
+            print("You have 2 more tries")
+        if counter == 2:
+            print("You have 1 more triy")
     else:
-        print("User not found in the database.")
+        # Code recovery process
+        print()
+        print("You have exceeded the maximum number of attempts. Let's recover your account.")
+        registration_retrieve()
+        
+# account recovery
+def registration_retrieve():
+    print()
+    print(("Code number recovery").upper())
+    print()
+    print("Tell us your Name and Birthday")
+    print()
+    # Catch birthday correctly
+    def Bday_format_valid(date_str):
+        date_format = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+        return bool(date_format.match(date_str))
+    ## retrive code
+    get_user_info = {}
+    while True:
+        try:
+            get_user_info["name"] = input("What is your name: ").capitalize()
+            if any(char.isdigit() for char in get_user_info["name"] ):
+                raise ValueError("Please enter valid name, no numbers.")
+            if not get_user_info["name"]:
+                raise ValueError("Name cannot be empty.")
+        except ValueError as e:
+            print(f"Error: {e}")
+        else:
+            break
+    while True:
+        try:
+            get_user_info["birthday"] = input("and your Bday (YYYY-MM-DD): ")
+            if not Bday_format_valid(get_user_info["birthday"]):
+                raise ValueError("Invalid format, please try YYYY-MM-DD")
+        except ValueError as e:
+            print(f"Error: {e}")
+        else:
+            break
     
+    with open("user_database.json", "r") as json_file:
+        read_data = json.load(json_file)    
+        
+    does_user_exists = read_data.get("registered_users", [])
+    
+    # print("Contents of does_user_exists:")
+    # for user in does_user_exists:
+    #     print(user)
+    
+    idiot_user = [user for user in does_user_exists if user.get("name") == get_user_info["name"] and user.get("birthday") == get_user_info["birthday"]]
 
+    if idiot_user:
+        idiot_user = idiot_user[0]  # Retrieve the first (and only) user from the list
+        print()
+        print(f"Hi {idiot_user['name']} Here is your code {idiot_user['user_code']}")
+        print()
+        run_register()
+    else:
+        print()
+        print("User not found. Register or try step 2 again please check your name and birthday.")
+        run_register()
+
+         
 
 # press 3 to continue unregistered
 def user_unregistered():

@@ -1,6 +1,10 @@
 from features import compute
 import json
 
+print()
+print("Plase choose by typing the alpha-numeric code from the menu")
+
+
 def read_json_data(json_file_name):
     with open(json_file_name, "r") as json_file:
         return json.load(json_file)
@@ -114,9 +118,6 @@ def processing_order():
 
 # run_menu is the main func
 def run_menu():
-    
-    print()
-    print("Plase choose by typing the alpha-numeric code from the menu")
     # show menu to the user
     menu_data = read_json_data("menu.json")
     show_menu(menu_data)

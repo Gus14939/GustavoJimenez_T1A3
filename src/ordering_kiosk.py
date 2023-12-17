@@ -36,11 +36,19 @@ from menu import run_menu
 ### END
 
 def main():
-    print()
-    print("WELCOME TO GUS' RESTAURANT!")
+    while True:
+        print()
+        print("WELCOME TO GUS' RESTAURANT!")
 
-    run_register()
-    run_menu()
+        run_register()
+        run_menu()
+
+        # to or quit
+        user_input = input("press enter key to continue: ").lower()
+        print()
+        if user_input == 'quit':
+            print("Goodbye!")
+            break  # Exit the loop if the user enters 'q'
 
 if __name__ == "__main__":
     main()
