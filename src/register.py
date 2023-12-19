@@ -2,10 +2,15 @@
 # import random
 import json
 import re
+from rich import print
+from rich.console import Console
+
+console = Console()
+
 # press 1 to register
 def user_registration():
     print("\n\n")
-    print("You'll have great perks after filling in this form. Thanks for registering!")
+    console.print("You'll have great perks after filling in this form. [#ca8610]Thanks for registering![/]")
     
     
     def create_user_code():
@@ -41,7 +46,7 @@ def user_registration():
                 if not get_user_info["name"]:
                     raise ValueError("Name cannot be empty.")
             except ValueError as e:
-                print(f"Error: {e}")
+                console.print(f"Error: {e}", style="red")
             else:
                 break
         while True:
@@ -50,14 +55,18 @@ def user_registration():
                 if not Bday_format_valid(get_user_info["birthday"]):
                     raise ValueError("Invalid format, please try YYYY-MM-DD")
             except ValueError as e:
-                print(f"Error: {e}")
+                console.print(f"Error: {e}", style="red")
             else:
                 break
         get_user_info["user_code"] = personal_user_code
+        # Create file
+        new_user_database_file_name = f"user_{get_user_info['user_code']}_active.json"        
+        create_user_json_file(new_user_database_file_name, get_user_info)  
+        
         print()
-        print(f"Welcome {get_user_info['name']}")
-        print(f"Your personal code is {get_user_info['user_code']}. Don't loose it!")
-        print("Use this code every time you comeback for added value and gifts!")
+        console.print(f"Welcome [bold green]{get_user_info['name']}[/]")
+        console.print(f"Your personal code is {get_user_info['user_code']}. [yellow]Don't loose it![/]")
+        console.print("Use this [yellow on black]code every[/] time you comeback for added value and gifts!")
         return get_user_info
         
 
@@ -77,7 +86,11 @@ def user_registration():
             
     save_user_to_db(new_user_to_db)
 
-
+#
+def create_user_json_file(file_name, data):
+    # Create or edit the JSON file
+    with open(file_name, 'w') as json_file:
+        json.dump(data, json_file, indent=2)
 
 # press 2 to log in
 def user_login():
@@ -109,16 +122,27 @@ def user_login():
             
             if user_registered_db:
                 print()
-                print(f"Hi {user_registered_db['name']}, welcome back!")
+                console.print(f"[bold green]Hi {user_registered_db['name']}[/], welcome back!")
+                # Create the individual user database
+                # new user login database create name
+                new_user_personal_database = user_registered_db
+                new_user_database_file_name = f"user_{user_registered_db['user_code']}_active.json"
+                
+                # with open(new_user_database_file_name, "w") as json_file:
+                #     json.dump(new_user_personal_database, json_file, indent=2)
+                
+                create_user_json_file(new_user_database_file_name, new_user_personal_database)    
+                    
+                # not sure if this is returning what I want!    
                 return user_registered_db
             else:
                 raise ValueError("User not found in the database.")
                 # return None
                 
         except ValueError as e:
-            print(f"Error: {e}")
+            console.print(f"Error: {e}", style="red")
         except TypeError as e:
-            print(f"Error: {e}")
+            console.print(f"Error: {e}", style="red")
         else:
             break
         counter += 1
@@ -130,9 +154,10 @@ def user_login():
     else:
         # Code recovery process
         print()
-        print("You have exceeded the maximum number of attempts. Let's recover your account.")
+        console.print("You have exceeded the maximum number of attempts. Let's recover your account.")
         registration_retrieve()
-        
+
+
 # account recovery
 def registration_retrieve():
     print()
@@ -154,7 +179,7 @@ def registration_retrieve():
             if not get_user_info["name"]:
                 raise ValueError("Name cannot be empty.")
         except ValueError as e:
-            print(f"Error: {e}")
+            console.print(f"Error: {e}", style="red")
         else:
             break
     while True:
@@ -163,7 +188,7 @@ def registration_retrieve():
             if not Bday_format_valid(get_user_info["birthday"]):
                 raise ValueError("Invalid format, please try YYYY-MM-DD")
         except ValueError as e:
-            print(f"Error: {e}")
+            console.print(f"Error: {e}", style="red")
         else:
             break
     
@@ -186,7 +211,7 @@ def registration_retrieve():
         run_register()
     else:
         print()
-        print("User not found. Register or try step 2 again please check your name and birthday.")
+        console.print("User not found. Register or try step 2 again please check your name and birthday.", style="bold  #CA8610 on red")
         run_register()
 
          
@@ -194,17 +219,18 @@ def registration_retrieve():
 # press 3 to continue unregistered
 def user_unregistered():
     print()
-    print("Hello Stranger, welcome to Gus' restaurant")
+    console.print("[bold #ca8610]Hello Stranger,[/] welcome to Gus' restaurant")
     return None
-            
+
+# 1st function in run_     
 def registration_selection():
     print()
-    print("Select from the 3 options below")
+    console.print("Select from the 3 options below", style="bold")
     print()
     
-    print("Type 1 to Register to Gus' Restaurant")
-    print("Type 2 to Login with your code number")
-    print("Type 3 to continue un-registered")
+    console.print("[bold]Type 1[/] to [bold cyan]Register[/] to Gus' Restaurant")
+    console.print("[bold]Type 2[/] to Login with your [bold cyan]code number[/]")
+    console.print("[bold]Type 3[/] to continue as a [bold #ca8610]Visitor[/]")
     print()
 
 user_choice = ""
@@ -236,7 +262,7 @@ def run_register():
             break
 
         except ValueError as e:
-            print(f"Error: {e}")
+            console.print(f"Error: {e}", style="red")
     
 
 

@@ -20,7 +20,7 @@ for i in range(10):
 def compute():
     with alive_bar(100) as bar:  # your expected total
         for item in items:        # the original loop
-            print(item)
+            print(item)xw
             sleep(0.01)           # your actual processing here
                                     # your actual processing here
             bar()                 # call `bar()` at the end

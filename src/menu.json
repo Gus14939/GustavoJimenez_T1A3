@@ -138,34 +138,34 @@
       ]
     }
   ],
-  "B-day": [
+  "specials": [
     {
-      "name": "Birthday Specials",
+      "name": "Super Specials",
       "items": [
         {
-          "number": "BD1",
-          "name": "Birthday Gus Special",
+          "number": "SP1",
+          "name": "Gus Special",
           "price": 5.99,
           "prep_time": 400,
           "stock_num": 20
         },
         {
-          "number": "BD2",
-          "name": "Dessert B-day Cheese",
+          "number": "SP2",
+          "name": "Dessert Super Cheese",
           "price": 2.99,
           "prep_time": 360,
           "stock_num": 10
         },
         {
-          "number": "BD3",
+          "number": "SP3",
           "name": "Gus Special Chicken",
           "price": 2.99,
           "prep_time": 280,
           "stock_num": 5
         },
         {
-          "number": "BD4",
-          "name": "Birthday Fruit",
+          "number": "SP4",
+          "name": "The Special Fruit",
           "price": 2.99,
           "prep_time": 200,
           "stock_num": 1

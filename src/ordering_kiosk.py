@@ -1,44 +1,16 @@
 # Self Ordering Kiosk // Gustavo Jimenez T1A3
-
 import json
 from register import run_register
 from menu import run_menu
-# from menu import 
-# from checkout import
-# from payment import 
-# from features import compute
-# from register import get_user_info
+from rich import print
+from rich.console import Console
 
-### REGISTRATION \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    
-# registration_selection()
-# press 1 to register
-# press 2 to log in
-# press 3 to continue unregistered
-
-
-# B-day !!!!
-
-### MENU
-
-# Show menu
-
-# Take order
-
-### CHECK-OUT
-
-# Show receipt # if Remove # Show receipt
-
-### PAYMENT
-
-# Something simple match user imput to the total 
-
-### END
+console = Console()
 
 def main():
     while True:
         print()
-        print("WELCOME TO GUS' RESTAURANT!")
+        console.print("WELCOME TO GUS' RESTAURANT!", style="bold #ca8610 on red")
 
         run_register()
         run_menu()
