@@ -16,10 +16,11 @@ def main():
         run_menu()
 
         # to or quit
-        user_input = input("press enter key to continue: ").lower()
+        user_input = console.input("press [bold green]enter key[/] to continue: ").lower()
         print()
         if user_input == 'quit':
-            print("Goodbye!")
+            console.print("[bold red]Goodbye![/]")
+            print()
             break  # Exit the loop if the user enters 'q'
 
 if __name__ == "__main__":

@@ -53,7 +53,7 @@ def show_order(order_data):
     for item in order_data:
         console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(item['number'], item['name'], item['price']))
     print()
-    console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(' ', 'Take-Out total:', total_price_order).upper())
+    console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format('', 'TAKE-OUT TOTAL:', total_price_order))
     print()
     # print(total_prep_time)
     print()
@@ -86,7 +86,7 @@ def select_item(menu_data):
             raise ValueError(f"Wrong code: {menu_section_user_input} is not in the menu")
 
         except ValueError as e:
-            print(f"Error: Invalid input. {e}")
+            console.print(f"[bold red]Error: Invalid input.[/] {e}")
             
             
 def user_selected_item(selected_item):
@@ -107,15 +107,15 @@ def create_user_order(menu_data):
         json.dump(new_order, json_file, indent=2)
 
 def checkout(menu_data):
-    print("Type in the 'code' and enter to remove")
-    print("Type 'done' to review your order")
-    print("Type 'OK' to finalize your order")
+    console.print("Type in the [bold]'code'[/] and enter to remove")
+    console.print("Type [bold #ca8610]'done'[/] to review your order")
+    console.print("Type [bold yellow]'OK'[/] to finalize your order")
     print()
     while True:
         try:
             read_order = read_json_data("temp_user_order.json")
 
-            checkout_input = input("Code and done or OK: ").upper()
+            checkout_input = console.input("[bold]Code, done or OK:[/] ").upper()
 
             if checkout_input == "OK":
                 break  # to exit the loop if the user types 'OK'
@@ -136,10 +136,10 @@ def checkout(menu_data):
                 console.print(f"Item [red strike]{checkout_input}[/] [red]removed[/] from the order.")
                 print()
             else:
-                raise ValueError(f"{checkout_input} is not in your order")
+                raise ValueError(f"[u #cccccc]{checkout_input}[/] is not in your order")
 
         except ValueError as e:
-            print(f"Invalid input: {e}")
+            console.print(f"[bold red]Invalid input:[/] {e}")
 
 def processing_order():
     read_order = read_json_data("temp_user_order.json")
@@ -172,8 +172,11 @@ def run_menu():
     checkout(menu_data)
 
     # Time processing
-    print("Your order is now complete!!")
-    print("We're preparing your glorious meal")
+    print()
+    console.print("Your order is now COMPLETE!!", style="bold #ca8610 on red")
+    print()
+    console.print("[#AAAAAA]We're [bold]preparing[/] your glorious meal[/]")
+    console.print("It won't be long. [bold yellow]Here's the time to wait[/]")
     print()
     processing_order()
     
@@ -184,8 +187,8 @@ def run_menu():
         print(f"Deleted the {active_file} file.")
 
     # End of Journey
-    print("\n\n")
-    print("Have a great day and come back soon")
+    print()
+    console.print("Have a great day and come back soon", style="bold green")
     print("\n\n")
 
 if __name__ == "__main__":

@@ -140,9 +140,9 @@ def user_login():
                 # return None
                 
         except ValueError as e:
-            console.print(f"Error: {e}", style="red")
+            console.print(f"[bold red]Error:[/] {e}")
         except TypeError as e:
-            console.print(f"Error: {e}", style="red")
+            console.print(f"[bold red]Error:[/] {e}")
         else:
             break
         counter += 1
