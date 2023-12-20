@@ -14,6 +14,12 @@ def user_registration():
     
     
     def create_user_code():
+        """
+        Read JSON data from a file and return the loaded content.
+
+        :param json_file_name: user_database.json
+        :return: Loaded JSON read_data.
+        """
         with open("user_database.json", "r") as json_file:
             read_data = json.load(json_file)
         
@@ -73,12 +79,24 @@ def user_registration():
         # file_name = (f"{get_user_info['name']}_{get_user_info['user_code']}_new_user.json")
 
     def save_user_to_db(new_user_to_db):
-    #read json
+        """
+        Read JSON data from a file and return the loaded content.
+
+        :param json_file_name: user_database.json
+        :return: Loaded JSON current_user_db.
+        """    
         with open("user_database.json", "r") as json_file:
             current_user_db = json.load(json_file)
-    # append new user
+        
+        # append new user
         current_user_db.setdefault("registered_users", []).append(new_user_to_db)
-    # write to db json
+
+        """
+        Write JSON data to a file.
+
+        :param json_file_name: user_database.json
+        :param data: current_user_db
+        """
         with open("user_database.json", "w") as json_file:
             json.dump(current_user_db, json_file, indent=2 ) 
     
@@ -88,7 +106,7 @@ def user_registration():
 
 #
 def create_user_json_file(file_name, data):
-    # Create or edit the JSON file
+    
     with open(file_name, 'w') as json_file:
         json.dump(data, json_file, indent=2)
 
@@ -112,7 +130,12 @@ def user_login():
 
             get_user_code = int(get_user_code)
 
-            # Read the user database
+            """
+            Read JSON data from a file and return the loaded content.
+
+            :param json_file_name: user_database.json
+            :return: Loaded JSON user_database.
+            """    
             with open("user_database.json", "r") as json_file:
                 user_database = json.load(json_file)
             
@@ -128,9 +151,12 @@ def user_login():
                 new_user_personal_database = user_registered_db
                 new_user_database_file_name = f"user_{user_registered_db['user_code']}_active.json"
                 
-                # with open(new_user_database_file_name, "w") as json_file:
-                #     json.dump(new_user_personal_database, json_file, indent=2)
-                
+                """
+                Write JSON data to a file.
+
+                :param json_file_name: new_user_database_file_name - user_'user-code'_active.json
+                :param data: new_user_personal_database
+                """
                 create_user_json_file(new_user_database_file_name, new_user_personal_database)    
                     
                 # not sure if this is returning what I want!    

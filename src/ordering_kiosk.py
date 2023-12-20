@@ -1,9 +1,10 @@
 # Self Ordering Kiosk // Gustavo Jimenez T1A3
-import json
-from register import run_register
-from menu import run_menu
 from rich import print
 from rich.console import Console
+import subprocess
+
+from register import run_register
+from menu import run_menu
 
 console = Console()
 
@@ -21,7 +22,15 @@ def main():
         if user_input == 'quit':
             console.print("[bold red]Goodbye![/]")
             print()
-            break  # Exit the loop if the user enters 'q'
-
+            break  # Exit the loop if the user enters 'quit'
+        
+    deactivate_venv()
+    
+def deactivate_venv():
+    try:
+        # Deactivate the virtual environment
+        subprocess.run(["deactivate"], check=True)
+    except subprocess.CalledProcessError:
+        print("Error deactivating virtual environment.")
 if __name__ == "__main__":
     main()

@@ -1,13 +1,13 @@
 import json
 import os
-from features import compute
+
 from rich import print
 from rich.console import Console
+from features import compute
 
 console = Console()
 
-
-
+# function to read json files
 def read_json_data(json_file_name):
     with open(json_file_name, "r") as json_file:
         return json.load(json_file)
@@ -30,7 +30,7 @@ def show_menu(menu_data):
     for category in menu_data["categories"]:
         console.print(f"\n{category['name']}:", style="bold #ca8610")
         for item in category["items"]:
-            console.print(f" - [bold yellow on black]{item['number']}[/] {item['name']}: [bold cyan]$[/]{item['price']:.2f}")
+            console.print(f" - [bold yellow on black]{item['number']}[/] {item['name']}: [bold cyan]${item['price']:.2f}[/]")
     print()
 
     if logged_in():
@@ -44,7 +44,7 @@ def show_menu(menu_data):
 # Print order
 def show_order(order_data):
     total_price_order = sum(item['price'] for item in order_data)
-    total_prep_time = sum(item["prep_time"] for item in order_data)
+    # total_prep_time = sum(item["prep_time"] for item in order_data)
     print()
     print("Here' is your order")
     print()
@@ -105,6 +105,12 @@ def create_user_order(menu_data):
 
     with open("temp_user_order.json", "w") as json_file:
         json.dump(new_order, json_file, indent=2)
+        """
+        Write JSON data to a file.
+
+        :param json_file_name: temp_user_order.json
+        :param data: new_order = []
+        """
 
 def checkout(menu_data):
     console.print("Type in the [bold]'code'[/] and enter to remove")
@@ -113,6 +119,12 @@ def checkout(menu_data):
     print()
     while True:
         try:
+            """
+            Read JSON data from a file and return the loaded content.
+
+            :param json_file_name: temp_user_order.json
+            :return: Loaded JSON data.
+            """
             read_order = read_json_data("temp_user_order.json")
 
             checkout_input = console.input("[bold]Code, done or OK:[/] ").upper()
@@ -129,9 +141,14 @@ def checkout(menu_data):
             if item_to_remove:
                 read_order.remove(item_to_remove)
 
-                # Update the temp_user_order.json file with the modified order
+                """
+                Write JSON data to a file.
+
+                :param json_file_name: temp_user_order.json
+                :param data: item_to_remove
+                """
                 with open("temp_user_order.json", "w") as json_file:
-                    json.dump(read_order, json_file, indent=2)
+                    json.dump(read_order, json_file, indent=2)                
 
                 console.print(f"Item [red strike]{checkout_input}[/] [red]removed[/] from the order.")
                 print()
@@ -142,7 +159,14 @@ def checkout(menu_data):
             console.print(f"[bold red]Invalid input:[/] {e}")
 
 def processing_order():
+    """
+    Read JSON data from a file and return the loaded content.
+
+    :param json_file_name: temp_user_order.json
+    :return: Loaded JSON data.
+    """
     read_order = read_json_data("temp_user_order.json")
+    
     total_prep_time = sum(item["prep_time"] for item in read_order)
     compute(total_prep_time)
     
@@ -184,7 +208,7 @@ def run_menu():
     active_file = find_single_file_with_suffix('./', '_active.json')
     if active_file:
         os.remove(active_file)
-        print(f"Deleted the {active_file} file.")
+        # print(f"Deleted the {active_file} file.")
 
     # End of Journey
     print()
