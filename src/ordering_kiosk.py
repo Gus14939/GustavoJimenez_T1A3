@@ -17,20 +17,12 @@ def main():
         run_menu()
 
         # to or quit
-        user_input = console.input("press [bold green]enter key[/] to continue: ").lower()
+        user_input = console.input("press [bold green]enter key[/] to make another order or [bold red]type quit[/] to finish: ").lower()
         print()
         if user_input == 'quit':
             console.print("[bold red]Goodbye![/]")
             print()
             break  # Exit the loop if the user enters 'quit'
         
-    deactivate_venv()
-    
-def deactivate_venv():
-    try:
-        # Deactivate the virtual environment
-        subprocess.run(["deactivate"], check=True)
-    except subprocess.CalledProcessError:
-        print("Error deactivating virtual environment.")
 if __name__ == "__main__":
     main()

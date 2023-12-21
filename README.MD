@@ -99,5 +99,5 @@ Create a menu file (e.g., menu.json) to store your menu items.
 You must include:
 - steps to install the application
 - any dependencies required by the application to operate
-- 
+- any system/hardware requirements
 - how to use any command line arguments made for the application
