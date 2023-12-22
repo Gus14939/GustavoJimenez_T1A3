@@ -4,3 +4,5 @@ __pycache__
 .venv
 *mock*
 *temp*
+.kiosk
+*test*

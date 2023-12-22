@@ -3,9 +3,17 @@ import os
 
 from rich import print
 from rich.console import Console
-from features import compute
+from rich.console import Console
+from rich.theme import Theme
+custom_theme = Theme({
+    "inp": "bold bright_white on #000000",
+    "err": "bold bright_white on #9f1616"
+})
 
-console = Console()
+
+from features import compute    
+
+console = Console(theme=custom_theme)
 
 # function to read json files
 def read_json_data(json_file_name):
@@ -30,15 +38,15 @@ def show_menu(menu_data):
     for category in menu_data["categories"]:
         console.print(f"\n{category['name']}:", style="bold #ca8610")
         for item in category["items"]:
-            console.print(f" - [bold yellow on black]{item['number']}[/] {item['name']}: [bold cyan]${item['price']:.2f}[/]")
+            console.print(f" - [bold #f2e209 on black]{item['number']}[/] {item['name']}: [bold cyan]${item['price']:.2f}[/]")
     print()
 
     if logged_in():
         # for registered users only
         for category in menu_data["specials"]:
-            console.print(f"\n[yellow]{category['name']}:[/]")
+            console.print(f"\n[#f2e209]{category['name']}:[/]")
             for item in category["items"]:
-                console.print(f" - [bold yellow]{item['number']}[/] [#ca8610]{item['name']}:[/] [bold yellow]${item['price']:.2f}[/]")
+                console.print(f" - [bold #f2e209]{item['number']}[/] [#ca8610]{item['name']}:[/] [bold #f2e209]${item['price']:.2f}[/]")
         print()
 
 # Print order
@@ -48,12 +56,12 @@ def show_order(order_data):
     print()
     print("Here' is your order")
     print()
-    console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]{:<0}[/][/]".format('CODE ', 'ITEM', 'PRICE'))
+    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]{:<0}[/][/]".format('CODE ', 'ITEM', 'PRICE'))
     print()
     for item in order_data:
-        console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(item['number'], item['name'], item['price']))
+        console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(item['number'], item['name'], item['price']))
     print()
-    console.print("[bold][yellow]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format('', 'TAKE-OUT TOTAL:', total_price_order))
+    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format('', 'TAKE-OUT TOTAL:', total_price_order))
     print()
     # print(total_prep_time)
     print()
@@ -62,7 +70,7 @@ def show_order(order_data):
 def select_item(menu_data):
     while True:
         try:
-            menu_section_user_input = str(console.input("Select the [yellow]code[/] or type [green]'done'[/] to checkout: ")).upper()
+            menu_section_user_input = str(console.input("[inp]Select the [#f2e209]code[/] or type [green]'done'[/] to checkout:[/inp] ")).upper()
 
             # Check if the user wants to proceed to checkout
             if menu_section_user_input == "DONE":
@@ -86,11 +94,11 @@ def select_item(menu_data):
             raise ValueError(f"Wrong code: {menu_section_user_input} is not in the menu")
 
         except ValueError as e:
-            console.print(f"[bold red]Error: Invalid input.[/] {e}")
+            console.print(f"[bold]Error:[/] Invalid input. {e}", style="err")
             
             
 def user_selected_item(selected_item):
-    console.print(f"You have selected [yellow on black]{selected_item['number']}[/] - {selected_item['name']} for a price of [bold cyan]$[/]{selected_item['price']:.2f}\n")
+    console.print(f"You have selected [#f2e209 on black]{selected_item['number']}[/] - {selected_item['name']} for a price of [bold cyan]$[/]{selected_item['price']:.2f}\n")
 
 def create_user_order(menu_data):
     new_order = []
@@ -115,7 +123,7 @@ def create_user_order(menu_data):
 def checkout(menu_data):
     console.print("Type in the [bold]'code'[/] and enter to remove")
     console.print("Type [bold #ca8610]'done'[/] to review your order")
-    console.print("Type [bold yellow]'OK'[/] to finalize your order")
+    console.print("Type [bold #f2e209]'OK'[/] to finalize your order")
     print()
     while True:
         try:
@@ -127,7 +135,7 @@ def checkout(menu_data):
             """
             read_order = read_json_data("temp_user_order.json")
 
-            checkout_input = console.input("[bold]Code, done or OK:[/] ").upper()
+            checkout_input = console.input("[inp]Code, done or OK:[/inp] ").upper()
 
             if checkout_input == "OK":
                 break  # to exit the loop if the user types 'OK'
@@ -150,13 +158,13 @@ def checkout(menu_data):
                 with open("temp_user_order.json", "w") as json_file:
                     json.dump(read_order, json_file, indent=2)                
 
-                console.print(f"Item [red strike]{checkout_input}[/] [red]removed[/] from the order.")
+                console.print(f"Item [err]{checkout_input} removed[/err] from the order.")
                 print()
             else:
                 raise ValueError(f"[u #cccccc]{checkout_input}[/] is not in your order")
 
         except ValueError as e:
-            console.print(f"[bold red]Invalid input:[/] {e}")
+            console.print(f"[bold]Invalid input:[/] {e}", style="err")
 
 def processing_order():
     """
@@ -180,7 +188,7 @@ def find_single_file_with_suffix(directory, suffix):
 def run_menu():
     
     print()
-    console.print("Please choose by typing the [yellow]alpha-numeric [bold]code[/][/] from the menu")
+    console.print("Please choose by typing the [#f2e209]alpha-numeric [bold]code[/][/] from the menu")
     # show menu to the user
     menu_data = read_json_data("menu.json")
     show_menu(menu_data)
@@ -197,10 +205,10 @@ def run_menu():
 
     # Time processing
     print()
-    console.print("Your order is now COMPLETE!!", style="bold #ca8610 on red")
+    console.print("Your order is now COMPLETE!!", style="bold #ffeb3e on #9f1616")
     print()
     console.print("[#AAAAAA]We're [bold]preparing[/] your glorious meal[/]")
-    console.print("It won't be long. [bold yellow]Here's the time to wait[/]")
+    console.print("It won't be long. [bold #f2e209]Here's the time to wait[/]")
     print()
     processing_order()
     

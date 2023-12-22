@@ -1,11 +1,14 @@
-
 # import random
 import json
 import re
 from rich import print
 from rich.console import Console
-
-console = Console()
+from rich.theme import Theme
+custom_theme = Theme({
+    "inp": "bold bright_white on #000000",
+    "err": "bold bright_white on #9f1616"
+})
+console = Console(theme=custom_theme)
 
 # press 1 to register
 def user_registration():
@@ -46,22 +49,22 @@ def user_registration():
         get_user_info = {}
         while True:
             try:
-                get_user_info["name"] = input("What is your name: ").capitalize()
+                get_user_info["name"] = console.input("[inp]What is your name:[/inp] ").capitalize()
                 if any(char.isdigit() for char in get_user_info["name"] ):
                     raise ValueError("Please enter valid name, no numbers.")
                 if not get_user_info["name"]:
                     raise ValueError("Name cannot be empty.")
             except ValueError as e:
-                console.print(f"Error: {e}", style="red")
+                console.print(f"Error: {e}", style="err")
             else:
                 break
         while True:
             try:
-                get_user_info["birthday"] = input("and your Bday (YYYY-MM-DD): ")
+                get_user_info["birthday"] = console.input("[inp]and your Bday (YYYY-MM-DD):[/inp] ")
                 if not Bday_format_valid(get_user_info["birthday"]):
                     raise ValueError("Invalid format, please try YYYY-MM-DD")
             except ValueError as e:
-                console.print(f"Error: {e}", style="red")
+                console.print(f"Error: {e}", style="err")
             else:
                 break
         get_user_info["user_code"] = personal_user_code
@@ -71,8 +74,8 @@ def user_registration():
         
         print()
         console.print(f"Welcome [bold green]{get_user_info['name']}[/]")
-        console.print(f"Your personal code is {get_user_info['user_code']}. [yellow]Don't loose it![/]")
-        console.print("Use this [yellow on black]code every[/] time you comeback for added value and gifts!")
+        console.print(f"Your personal code is {get_user_info['user_code']}. [#f2e209]Don't loose it![/]")
+        console.print("Use this [#f2e209 on black]code every[/] time you comeback for added value and gifts!")
         return get_user_info
         
 
@@ -116,7 +119,7 @@ def user_login():
     while counter < 3:            
         try:                
             # User input
-            get_user_code = input("What is your 3-number-code: ")
+            get_user_code = console.input("[inp]What is your 3-number-code:[/inp] ")
             
             # Error Handling
             if not get_user_code:
@@ -166,9 +169,9 @@ def user_login():
                 # return None
                 
         except ValueError as e:
-            console.print(f"[bold red]Error:[/] {e}")
+            console.print(f"[bold]Error:[/] {e}", style="err")
         except TypeError as e:
-            console.print(f"[bold red]Error:[/] {e}")
+            console.print(f"[bold]Error:[/] {e}", style="err")
         else:
             break
         counter += 1
@@ -199,22 +202,22 @@ def registration_retrieve():
     get_user_info = {}
     while True:
         try:
-            get_user_info["name"] = input("What is your name: ").capitalize()
+            get_user_info["name"] = console.input("[inp]What is your name:[/inp] ").capitalize()
             if any(char.isdigit() for char in get_user_info["name"] ):
                 raise ValueError("Please enter valid name, no numbers.")
             if not get_user_info["name"]:
                 raise ValueError("Name cannot be empty.")
         except ValueError as e:
-            console.print(f"Error: {e}", style="red")
+            console.print(f"[bold]Error:[/] {e}", style="err")
         else:
             break
     while True:
         try:
-            get_user_info["birthday"] = input("and your Bday (YYYY-MM-DD): ")
+            get_user_info["birthday"] = console.input("[inp]and your Bday (YYYY-MM-DD):[inp] ")
             if not Bday_format_valid(get_user_info["birthday"]):
                 raise ValueError("Invalid format, please try YYYY-MM-DD")
         except ValueError as e:
-            console.print(f"Error: {e}", style="red")
+            console.print(f"[bold]Error:[/] {e}", style="err")
         else:
             break
     
@@ -272,7 +275,7 @@ def run_register():
     registration_selection()
     while True:
         try:
-            user_choice = input("How would you like to proceed?: ")
+            user_choice = console.input("[inp]How would you like to proceed?:[/inp] ")
             if not user_choice.isdigit():
                 raise ValueError("Please enter a valid number.")
             user_choice = int(user_choice)  # Convert user input to integer
@@ -288,7 +291,7 @@ def run_register():
             break
 
         except ValueError as e:
-            console.print(f"Error: {e}", style="red")
+            console.print(f"[bold]Error:[/] {e}", style="err")
     
 
 

@@ -1,7 +1,6 @@
 # Self Ordering Kiosk // Gustavo Jimenez T1A3
 from rich import print
 from rich.console import Console
-import subprocess
 
 from register import run_register
 from menu import run_menu
@@ -11,7 +10,7 @@ console = Console()
 def main():
     while True:
         print()
-        console.print("WELCOME TO GUS' RESTAURANT!", style="bold #ca8610 on red")
+        console.print("WELCOME TO GUS' RESTAURANT!", style="bold #ffeb3e on red")
 
         run_register()
         run_menu()

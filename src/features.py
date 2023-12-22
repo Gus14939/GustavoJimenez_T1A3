@@ -4,6 +4,14 @@
 from alive_progress import alive_bar
 from time import sleep
 
+def compute(TIME):
+    with alive_bar(TIME) as bar:  # your expected total
+        for i in range(TIME):     # the original loop
+            # sleep(0.6)           # your actual processing here
+            sleep(0.01)           # Fake for quick test
+            bar()                 # call `bar()` at the end
+
+# compute(100)
 '''
 items = [1,2,3,4,5,6,7,8,9,0]
 
@@ -29,13 +37,5 @@ def compute():
 compute()
 '''
 
-def compute(TIME):
-    with alive_bar(TIME) as bar:  # your expected total
-        for i in range(TIME):     # the original loop
-            # sleep(0.6)           # your actual processing here
-            sleep(0.01)           # Fake for quick test
-            bar()                 # call `bar()` at the end
-
-# compute(100)
 
 
