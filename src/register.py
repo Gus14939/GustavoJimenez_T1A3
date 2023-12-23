@@ -45,7 +45,7 @@ def user_registration():
         date_format = re.compile(r'^\d{4}-\d{2}-\d{2}$')
         return bool(date_format.match(date_str))
     
-    def get_new_user_info():
+    def get_new_user_info(): 
         get_user_info = {}
         while True:
             try:

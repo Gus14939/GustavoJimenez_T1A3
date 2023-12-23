@@ -49,23 +49,6 @@ def show_menu(menu_data):
                 console.print(f" - [bold #f2e209]{item['number']}[/] [#ca8610]{item['name']}:[/] [bold #f2e209]${item['price']:.2f}[/]")
         print()
 
-# Print order
-def show_order(order_data):
-    total_price_order = sum(item['price'] for item in order_data)
-    # total_prep_time = sum(item["prep_time"] for item in order_data)
-    print()
-    print("Here' is your order")
-    print()
-    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]{:<0}[/][/]".format('CODE ', 'ITEM', 'PRICE'))
-    print()
-    for item in order_data:
-        console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(item['number'], item['name'], item['price']))
-    print()
-    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format('', 'TAKE-OUT TOTAL:', total_price_order))
-    print()
-    # print(total_prep_time)
-    print()
-
 # User input
 def select_item(menu_data):
     while True:
@@ -96,7 +79,6 @@ def select_item(menu_data):
         except ValueError as e:
             console.print(f"[bold]Error:[/] Invalid input. {e}", style="err")
             
-            
 def user_selected_item(selected_item):
     console.print(f"You have selected [#f2e209 on black]{selected_item['number']}[/] - {selected_item['name']} for a price of [bold cyan]$[/]{selected_item['price']:.2f}\n")
 
@@ -120,6 +102,23 @@ def create_user_order(menu_data):
         :param data: new_order = []
         """
 
+# Print order
+def show_order(order_data):
+    total_price_order = sum(item['price'] for item in order_data)
+    # total_prep_time = sum(item["prep_time"] for item in order_data)
+    print()
+    print("Here' is your order")
+    print()
+    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]{:<0}[/][/]".format('CODE ', 'ITEM', 'PRICE'))
+    print()
+    for item in order_data:
+        console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format(item['number'], item['name'], item['price']))
+    print()
+    console.print("[bold][#f2e209]{:<10}[/]{:<30}[cyan]${:<0.2f}[/][/]".format('', 'TAKE-OUT TOTAL:', total_price_order))
+    print()
+    # print(total_prep_time)
+    print()
+    
 def checkout(menu_data):
     console.print("Type in the [bold]'code'[/] and enter to remove")
     console.print("Type [bold #ca8610]'done'[/] to review your order")
