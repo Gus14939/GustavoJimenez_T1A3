@@ -1,5 +1,9 @@
 # Gustavo Jimenez T1A3 - Self Service Kiosk
-  
+
+---
+### Link to video presentation
+[GustavoJimenezT1A3_VideoPresentation](https://youtu.be/oaDNtTUcSkI)
+---  
 ### R1. Answers to all the documentation requirements below.
 ### R2. Your README.md should have a separate heading for each documentation requirement and answers organised under the appropriate headings.
 
@@ -11,6 +15,8 @@ alive-progress library --- https://pypi.org/project/alive-progress/
     https://pypi.org/project/alive-progress/
 
 json files --- https://www.pythoncheatsheet.org/cheatsheet/json-yaml
+
+pytest --- https://www.youtube.com/watch?v=ucjRpS7WCPA
 
 ### R4. Provide a link to your source control repository
  - ### [GustavoJimenez_T1A3-GitProject](https://github.com/Gus14939/GustavoJimenez_T1A3)
@@ -132,69 +138,17 @@ Implement error handling for invalid input and items.
 
 ---
 
-
 ### [Link to my project in Trello](https://trello.com/invite/b/0xTGfdhA/ATTI723b81d85f9412b7a5f41b8c794eadfc665F35AE/self-service-kiosk)
-
+Trello progress
 ![Trello 01](docs/Trello_01.png)
-![Trello 01](docs/Trello_02.png)
-![Trello 01](docs/Trello_03.png)
+![Trello 02](docs/Trello_02.png)
+![Trello 03](docs/Trello_03.png)
+![Trello 04](docs/Trello_04.png)
 
+---
 
 ### R8. Design help documentation which includes a set of instructions which accurately describe how to use and install the application.
 
-You must include:
-- steps to install the application  
+### A file called [SS_Kiosk_User_Documentation.MD](./SS_Kiosk_User_Documentation.MD) has been created to help the user operating the terminal application
 
-    - Instructions to access Gus' Restaturant Self Service Kiosk:
-
-    - Open a terminal window on your computer.
-
-    - Navigate to the directory where the RUN_SSKiosk.sh script is located.
-
-    - Run the following command to execute the script:
-
-    ```
-    ./RUN_SSKiosk.sh
-    ```
-
-    This will check if Python is installed and if venv is available. If both are true, it will create a virtual environment, install Python dependencies, run the ordering_kiosk.py script, and deactivate the virtual environment. If either Python or venv is not installed, the script will exit with an error message.
-
-    If you encounter any issues while running the script, please refer to the error messages for guidance. You can also refer to the following resources for help:
-
-    [Official virtualenv documentation](https://virtualenv.pypa.io/en/latest/installation.html)  
-    [Python Packaging User Guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-
-- any dependencies required by the application to operate
-
-    The below are specified in the requirements.txt file
-
-    about-time==4.2.1  
-    alive-progress==3.1.5  
-    grapheme==0.6.0  
-    markdown-it-py==3.0.0  
-    mdurl==0.1.2  
-    Pygments==2.17.2  
-    rich==13.7.0  
-
-- any system/hardware requirements
-
-    Python 3.2 and over
-    virtualenv package installed
-
-    Hardware:  
-    system specifications that should be sufficient for running Python terminal applications:
-
-    Operating System: Windows 10, macOS, or Linux  
-    Processor: Intel Core i3 or AMD Ryzen 3  
-    Memory: 4 GB RAM  
-    Storage: 256 GB SSD  
-    Display: 1366 x 768 resolution
-
-    These specifications should be sufficient for running most Python terminal applications. However, if you are working with large datasets or running computationally intensive applications
-
-- how to use any command line arguments made for the
-application  
-
-    No command line arguments were implemented in this application
-
-    The user only inputs numbers, codes or keywords displayed in the user interface
+---
