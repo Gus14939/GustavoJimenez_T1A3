@@ -6,3 +6,4 @@ __pycache__
 *temp*
 .kiosk
 *test*
+.pytest_cache
