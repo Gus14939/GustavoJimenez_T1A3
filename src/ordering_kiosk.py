@@ -2,7 +2,7 @@
 from rich import print
 from rich.console import Console
 
-from register import run_register
+from register import run_register, user_choice
 from menu import run_menu
 
 console = Console()
@@ -12,7 +12,7 @@ def main():
         print()
         console.print("WELCOME TO GUS' RESTAURANT!", style="bold #ffeb3e on red")
 
-        run_register()
+        run_register(user_choice)
         run_menu()
 
         # to or quit

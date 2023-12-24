@@ -49,7 +49,7 @@ def user_registration():
         get_user_info = {}
         while True:
             try:
-                get_user_info["name"] = console.input("[inp]What is your name:[/inp] ").capitalize()
+                get_user_info["name"] = input("What is your name: ").capitalize()
                 if any(char.isdigit() for char in get_user_info["name"] ):
                     raise ValueError("Please enter valid name, no numbers.")
                 if not get_user_info["name"]:
@@ -60,7 +60,7 @@ def user_registration():
                 break
         while True:
             try:
-                get_user_info["birthday"] = console.input("[inp]and your Bday (YYYY-MM-DD):[/inp] ")
+                get_user_info["birthday"] = input("and your Bday (YYYY-MM-DD): ")
                 if not Bday_format_valid(get_user_info["birthday"]):
                     raise ValueError("Invalid format, please try YYYY-MM-DD")
             except ValueError as e:
@@ -112,14 +112,47 @@ def create_user_json_file(file_name, data):
     
     with open(file_name, 'w') as json_file:
         json.dump(data, json_file, indent=2)
+        
 
 # press 2 to log in
-def user_login():
+get_user_code = 0
+user_registered_db = ""
+
+def login_with_code(get_user_code):
+    # get_user_code = "100"
+    get_user_code = input("What is your 3-number-code: ")
+    return get_user_code
+
+def user_registered_in_database(user_registered_db):
+    if user_registered_db:
+        print()
+        console.print(f"[bold green]Hi {user_registered_db['name']}[/], welcome back!")
+        # Create the individual user database
+        # new user login database create name
+        new_user_personal_database = user_registered_db
+        new_user_database_file_name = f"user_{user_registered_db['user_code']}_active.json"
+        
+        """
+        Write JSON data to a file.
+
+        :param json_file_name: new_user_database_file_name - user_'user-code'_active.json
+        :param data: new_user_personal_database
+        """
+        create_user_json_file(new_user_database_file_name, new_user_personal_database)    
+            
+        # not sure if this is returning what I want!    
+        return user_registered_db
+    else:
+        raise ValueError("User not found in the database.")
+        # return None
+    
+def user_login(get_user_code, user_registered_db):
     counter = 0
     while counter < 3:            
         try:                
             # User input
-            get_user_code = console.input("[inp]What is your 3-number-code:[/inp] ")
+            # get_user_code = input("What is your 3-number-code: ")
+            get_user_code = login_with_code(get_user_code)  # Pass user_choice to login_with_code
             
             # Error Handling
             if not get_user_code:
@@ -146,27 +179,8 @@ def user_login():
             
             user_registered_db = next((user for user in users_in_database if user["user_code"] == get_user_code), None)
             
-            if user_registered_db:
-                print()
-                console.print(f"[bold green]Hi {user_registered_db['name']}[/], welcome back!")
-                # Create the individual user database
-                # new user login database create name
-                new_user_personal_database = user_registered_db
-                new_user_database_file_name = f"user_{user_registered_db['user_code']}_active.json"
-                
-                """
-                Write JSON data to a file.
-
-                :param json_file_name: new_user_database_file_name - user_'user-code'_active.json
-                :param data: new_user_personal_database
-                """
-                create_user_json_file(new_user_database_file_name, new_user_personal_database)    
-                    
-                # not sure if this is returning what I want!    
-                return user_registered_db
-            else:
-                raise ValueError("User not found in the database.")
-                # return None
+            user_registered_in_database(user_registered_db)
+            
                 
         except ValueError as e:
             console.print(f"[bold]Error:[/] {e}", style="err")
@@ -179,7 +193,7 @@ def user_login():
         if counter == 1:
             print("You have 2 more tries")
         if counter == 2:
-            print("You have 1 more triy")
+            print("You have 1 more try")
     else:
         # Code recovery process
         print()
@@ -202,7 +216,7 @@ def registration_retrieve():
     get_user_info = {}
     while True:
         try:
-            get_user_info["name"] = console.input("[inp]What is your name:[/inp] ").capitalize()
+            get_user_info["name"] = input("What is your name: ").capitalize()
             if any(char.isdigit() for char in get_user_info["name"] ):
                 raise ValueError("Please enter valid name, no numbers.")
             if not get_user_info["name"]:
@@ -213,7 +227,7 @@ def registration_retrieve():
             break
     while True:
         try:
-            get_user_info["birthday"] = console.input("[inp]and your Bday (YYYY-MM-DD):[inp] ")
+            get_user_info["birthday"] = input("and your Bday (YYYY-MM-DD): ")
             if not Bday_format_valid(get_user_info["birthday"]):
                 raise ValueError("Invalid format, please try YYYY-MM-DD")
         except ValueError as e:
@@ -237,11 +251,11 @@ def registration_retrieve():
         print()
         print(f"Hi {idiot_user['name']} Here is your code {idiot_user['user_code']}")
         print()
-        run_register()
+        run_register(user_choice)
     else:
         print()
         console.print("User not found. Register or try step 2 again please check your name and birthday.", style="bold  #CA8610 on red")
-        run_register()
+        run_register(user_choice)
 
          
 
@@ -262,28 +276,31 @@ def registration_selection():
     console.print("[bold]Type 3[/] to continue as a [bold #ca8610]Visitor[/]")
     print()
 
-user_choice = ""
 
 # press 1 to register
 # press 2 to log in
 # press 3 to continue unregistered
 
-# registration_selection()
-   
-def run_register():
-    
+# register.py
+user_choice = 0
+
+def options_to_continue(user_choice):
+    user_choice_input = input("How would you like to proceed?: ")
+    if not user_choice_input.isdigit():
+        raise ValueError("Please enter a valid number.")
+    user_choice = int(user_choice_input)  # Convert user input to integer
+    return user_choice
+
+def run_register(user_choice):
     registration_selection()
     while True:
         try:
-            user_choice = console.input("[inp]How would you like to proceed?:[/inp] ")
-            if not user_choice.isdigit():
-                raise ValueError("Please enter a valid number.")
-            user_choice = int(user_choice)  # Convert user input to integer
+            user_choice = options_to_continue(user_choice)  # Pass user_choice to options_to_continue
 
             if user_choice == 1:
                 user_registration()
             elif user_choice == 2:
-                user_login()
+                user_login(get_user_code, user_registered_db)
             elif user_choice == 3:
                 user_unregistered()
             else:
@@ -291,9 +308,7 @@ def run_register():
             break
 
         except ValueError as e:
-            console.print(f"[bold]Error:[/] {e}", style="err")
-    
-
+            print(f"Error: {e}")
 
 if __name__ == "__main__":
-    run_register()
+    run_register(user_choice)
